@@ -354,6 +354,7 @@ MonoBehaviour:
   onHour:
     m_PersistentCalls:
       m_Calls:
+<<<<<<< HEAD
       - m_Target: {fileID: 1241655291}
         m_TargetAssemblyTypeName: ClockScript, Assembly-CSharp
         m_MethodName: Chime
@@ -366,6 +367,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+=======
+      - {m_Target: {fileID: 1241655291}, m_TargetAssemblyTypeName: ClockScript, Assembly-CSharp, m_MethodName: Chime, m_Mode: 1, m_Arguments: {m_ObjectArgument: {fileID: 0}, m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, m_IntArgument: 0, m_FloatArgument: 0, m_StringArgument: , m_BoolArgument: 0}, m_CallState: 2}
+    m_CallsDirty: 1
+  passHour: 0
+>>>>>>> main
 --- !u!82 &1241655292
 AudioSource:
   m_ObjectHideFlags: 0
