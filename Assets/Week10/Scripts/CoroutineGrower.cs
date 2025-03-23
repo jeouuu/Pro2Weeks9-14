@@ -8,6 +8,7 @@ public class CoroutineGrower : MonoBehaviour
     public float minSize = 0f;
     public float maxSize = 1f;
     public float t;
+    
     public Transform apple;
 
     public void StartGrowing()

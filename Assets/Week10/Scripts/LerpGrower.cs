@@ -8,6 +8,7 @@ public class LerpGrower : MonoBehaviour
     public float minSize = 0f;
     public float maxSize = 1f;
     public float t;
+
     public bool startGrow;
 
     private void Update()
@@ -18,6 +19,7 @@ public class LerpGrower : MonoBehaviour
             Grow();
         }
     }
+
     public  void StartGrow()
     {
         startGrow = true;
