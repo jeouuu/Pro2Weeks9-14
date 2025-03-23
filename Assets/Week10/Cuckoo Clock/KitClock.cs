@@ -7,65 +7,59 @@ public class KitClock : MonoBehaviour
 {
     public Transform hourHand;
     public Transform minuteHand;
-    public float timeAnHourTakes = 5;
 
+    public float timeAnHourTakes = 5;
     public float t;
     public int hour = 0;
 
-    public UnityEvent OnTheHour;
+    public UnityEvent<int> OnTheHour;
 
     private Coroutine clockIsRunning;
-    private Coroutine doAnHour;
+    private IEnumerator handsAreMoving;
 
     private void Start()
     {
-        clockIsRunning = StartCoroutine(MoveTheClock());
+        clockIsRunning = StartCoroutine(MakeTheClockRun());
     }
 
-    void Update()
+    IEnumerator MakeTheClockRun()
     {
-        //t += Time.deltaTime;
-
-        //if (t > timeAnHourTakes)
-        //{
-        //    t = 0;
-        //    OnTheHour.Invoke();
-
-        //    hour++;
-        //    if (hour == 12)
-        //    {
-        //        hour = 0;
-        //    }
-        //}
-    }
-
-    private IEnumerator MoveTheClock()
-    {  
+        hour = 0;
         while (true)
         {
-          //  doAnHour = 
-          //  yield return StartCoroutine(forTheClockHour());
+            handsAreMoving = MoveTheHandForAnHour();
+            yield return StartCoroutine(handsAreMoving);
         }
+ 
     }
-
-
-    private IEnumerator forTheClockHour()
+    IEnumerator MoveTheHandForAnHour()
     {
         t = 0;
-        while(t < timeAnHourTakes)
+        while(t< timeAnHourTakes)
         {
             t += Time.deltaTime;
-            minuteHand.Rotate(0, 0, -(360 / timeAnHourTakes) * Time.deltaTime);
-            hourHand.Rotate(0, 0, -(36 / timeAnHourTakes) * Time.deltaTime);
+            minuteHand.transform.Rotate(0,0,-(360/timeAnHourTakes)*Time.deltaTime);
+            hourHand.transform.Rotate(0,0,-(30/timeAnHourTakes)*Time.deltaTime);
             yield return null;
         }
-
-        OnTheHour.Invoke();
+        hour++;
+        if(hour == 13)
+        {
+            hour = 1;
+        } 
+        OnTheHour.Invoke (hour);
     }
 
     public void StopTheClock()
     {
-        StopCoroutine(clockIsRunning);
+        if(clockIsRunning != null)
+        {
+            StopCoroutine(clockIsRunning);
+        }  
+        if(handsAreMoving != null)
+        {
+            StopCoroutine(handsAreMoving);
+        }      
     }
 
 }
