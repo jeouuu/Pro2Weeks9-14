@@ -61,8 +61,12 @@ public class Knight : MonoBehaviour
     {
         canRun = true;
     }
-    public void FootStep()
+
+    public void FootStepA()
     {
         audioSource.Play();
+
     }
+
+
 }
