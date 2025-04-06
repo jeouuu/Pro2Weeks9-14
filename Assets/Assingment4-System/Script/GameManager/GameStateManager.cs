@@ -7,7 +7,10 @@ public class GameStateManager : MonoBehaviour
     public int gameState;
 
     //ref from state 0 
-    public GameObject StartMenu;
+    public GameObject startMenu;
+
+    //ref from state 1
+    public GameObject recipeUI;
 
     private void Start()
     {
@@ -18,11 +21,13 @@ public class GameStateManager : MonoBehaviour
     {
         if(gameState == 0)
         {
-            StartMenu.SetActive(true);
+            startMenu.SetActive(true);
+            recipeUI.SetActive(false);
         }
         if(gameState == 1)
         {
-            StartMenu.SetActive(false);
+            startMenu.SetActive(false);
+            recipeUI.SetActive(true);
         }
     }
 

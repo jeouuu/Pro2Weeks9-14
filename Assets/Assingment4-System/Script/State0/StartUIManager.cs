@@ -12,6 +12,10 @@ public class StartUIManager : MonoBehaviour
     public TMP_Dropdown p1ChefOptions;
     public TMP_Dropdown p2ChefOptions;
 
+    //ref from the chef animations
+    public Animator chefAnimator1; 
+    public Animator chefAnimator2; 
+
     //ref the gameStateManager
     public GameStateManager gameStateManager;
 
@@ -26,13 +30,16 @@ public class StartUIManager : MonoBehaviour
     {
         //change the player image based on the player's selection
         p1Image.sprite = p1ChefOptions.options[index].image;
+        chefAnimator1.SetInteger("chooseChefNum",index);
     }
 
     public void P2ChooseChef(int index)
     {
         //change the player image based on the player's selection
         p2Image.sprite = p2ChefOptions.options[index].image;
+        chefAnimator2.SetInteger("chooseChefNum", index);
     }
+
 
     public void PlayButton()
     {
