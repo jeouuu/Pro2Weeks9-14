@@ -19,6 +19,10 @@ public class StartUIManager : MonoBehaviour
     //ref the gameStateManager
     public GameStateManager gameStateManager;
 
+    //set different chef to different numbers, use this info in other scripts
+    public int p1ChefNum = 0;
+    public int p2ChefNum = 0;
+
     private void Start()
     {
         //set the default image to the first option from dropdown
@@ -31,6 +35,7 @@ public class StartUIManager : MonoBehaviour
         //change the player image based on the player's selection
         p1Image.sprite = p1ChefOptions.options[index].image;
         chefAnimator1.SetInteger("chooseChefNum",index);
+        p1ChefNum = index;
     }
 
     public void P2ChooseChef(int index)
@@ -38,6 +43,7 @@ public class StartUIManager : MonoBehaviour
         //change the player image based on the player's selection
         p2Image.sprite = p2ChefOptions.options[index].image;
         chefAnimator2.SetInteger("chooseChefNum", index);
+        p2ChefNum = index;
     }
 
 

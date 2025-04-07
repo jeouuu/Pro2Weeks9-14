@@ -12,9 +12,13 @@ public class GameStateManager : MonoBehaviour
     //ref from state 1
     public GameObject recipeUI;
 
+    //ref from state 2
+    public GameObject gameModeUI;
+    public GameObject gameMode;
+
     private void Start()
     {
-        gameState = 0;
+        gameState = 2;
     }
 
     private void Update()
@@ -23,11 +27,22 @@ public class GameStateManager : MonoBehaviour
         {
             startMenu.SetActive(true);
             recipeUI.SetActive(false);
+            gameModeUI.SetActive(false);
+            gameMode.SetActive(false);
         }
         if(gameState == 1)
         {
             startMenu.SetActive(false);
             recipeUI.SetActive(true);
+            gameModeUI.SetActive(false);
+            gameMode.SetActive(false);
+        }
+        if (gameState == 2)
+        {
+            startMenu.SetActive(false);
+            recipeUI.SetActive(false);
+            gameModeUI.SetActive(true);
+            gameMode.SetActive(true);
         }
     }
 
