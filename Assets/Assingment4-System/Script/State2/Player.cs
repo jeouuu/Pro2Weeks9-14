@@ -21,41 +21,106 @@ public class Player : MonoBehaviour
     //var for pick up 
     public bool canPick = false;
     public bool hadPicked = false;
+    public GameObject heldFood;
     public UnityEvent onPick;
-    
+
+    //ref and var for the throw mechanic
+    public GameObject arrowRotator;
+    public float rotateSpeed;
+    private float originalSpeed;
+    private Vector2 throwDir;
+    public UnityEvent onThrow;
+
+    //ref anf var for the hit mechanic
+    public UnityEvent onHit;
+
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         chefAnimator = GetComponent<Animator>();
+        originalSpeed = speed;
     }
 
     private void Update()
     {
         ChangeSprite();
         Move();
+        Pick();
+        Throw();
+    }
 
-        if (canPick && Input.GetKeyDown(KeyCode.Space) && !hadPicked) 
+    private void Throw()
+    {
+        if (hadPicked)
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                //freeze palyer movement
+                speed = 0;
+                arrowRotator.SetActive(true);
+                if (Input.GetKey(KeyCode.W))
+                {
+                    //rotate the arrow upward                 
+                    arrowRotator.transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
+
+                } else if (Input.GetKey(KeyCode.S))
+                {
+                    //rotate the arrow downward
+                    arrowRotator.transform.Rotate(0, 0, -rotateSpeed * Time.deltaTime);
+                }else if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
+                {
+                    //throw the food
+                    onThrow.Invoke();
+                }
+            } else 
+            {
+                //if we are not holding space key hide arrow and restore speed
+                arrowRotator.SetActive(false);
+                speed = originalSpeed;
+            }
+        } else
+        {
+            //if we are not holding food do the following as a default state
+            arrowRotator.SetActive(false);
+            speed = originalSpeed;
+        }
+    }
+
+    public void ThrowFood()
+    {
+        if (heldFood != null)
+        {
+            // Unparent the food so it's no longer attached to the player
+            heldFood.transform.parent = null;
+
+            // Start the throwing action on the food item
+            throwDir = arrowRotator.transform.right;
+            throwDir.Normalize();
+            heldFood.GetComponent<FoodItem>().StartThrow(throwDir);
+
+            // After throwing, reset the held food state
+            hadPicked = false;
+            heldFood = null;
+        }
+    }
+
+    public void HoldFood(GameObject food)
+    {
+        food.transform.SetParent(transform);
+        food.transform.localScale = Vector3.zero;
+    }
+
+    private void Pick()
+    {
+        if (canPick && Input.GetKeyDown(KeyCode.Space) && !hadPicked)
         {
             hadPicked = true;
             canPick = false;
             onPick.Invoke();
-        }
-    }
 
-
-    private void Throw()
-    {
-        if (hadPicked && Input.GetKey(KeyCode.Space))
-        {
-            //freeze palyer movement
-            speed = 0;
-            if (Input.GetKey(KeyCode.W))
+            if(heldFood != null)
             {
-                //rotate the arrow upward
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                //rotate the arrow downward
+                HoldFood(heldFood);
             }
         }
     }

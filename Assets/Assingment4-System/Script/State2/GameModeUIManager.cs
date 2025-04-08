@@ -43,5 +43,14 @@ public class GameModeUIManager : MonoBehaviour
         p2FoodSlot.sprite= p2PickedFoodSprite;
     }
 
+    public void EmptyFoodSlot1()
+    {
+        p1FoodSlot.sprite = null;
+    }
+    public void EmptyFoodSlot2()
+    {
+        p2FoodSlot.sprite = null;
+    }
+
 
 }

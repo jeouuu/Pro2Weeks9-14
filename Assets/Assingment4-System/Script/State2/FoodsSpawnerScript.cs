@@ -16,7 +16,8 @@ public class FoodsSpawnerScript : MonoBehaviour
     public List<GameObject> foodList;
     private bool hadSpawn = false;
     private Vector2 randomPos;
-    public Vector2 randomPosOffset;
+    public Vector2 randomPosOffsetUp;
+    public Vector2 randomPosOffsetDown;
 
     //ref the players and ui manager
     public GameObject p1;
@@ -47,7 +48,7 @@ public class FoodsSpawnerScript : MonoBehaviour
             Vector2 minRandomPos = Camera.main.ScreenToWorldPoint(Vector2.zero);
             Vector2 maxRandomPos = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width,Screen.height));
             //set the random position, with the offset that makes the boundry smaller
-            randomPos = new Vector2(Random.Range(minRandomPos.x + randomPosOffset.x,maxRandomPos.x - randomPosOffset.x),Random.Range(minRandomPos.y + randomPosOffset.y, maxRandomPos.y - randomPosOffset.y));
+            randomPos = new Vector2(Random.Range(minRandomPos.x + randomPosOffsetDown.x,maxRandomPos.x - randomPosOffsetUp.x),Random.Range(minRandomPos.y + randomPosOffsetDown.y, maxRandomPos.y - randomPosOffsetUp.y));
 
             GameObject newFood = Instantiate(foodPrefab, randomPos,Quaternion.identity);
             newFood.GetComponent<SpriteRenderer>().sprite = foodSprites[Random.Range(0, foodSprites.Length)];
