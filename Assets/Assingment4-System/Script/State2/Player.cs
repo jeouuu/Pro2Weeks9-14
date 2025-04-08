@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
@@ -17,7 +18,11 @@ public class Player : MonoBehaviour
     public float friction = 5f;
     private Vector2 velocity = Vector2.zero;
 
-
+    //var for pick up 
+    public bool canPick = false;
+    public bool hadPicked = false;
+    public UnityEvent onPick;
+    
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -28,6 +33,31 @@ public class Player : MonoBehaviour
     {
         ChangeSprite();
         Move();
+
+        if (canPick && Input.GetKeyDown(KeyCode.Space) && !hadPicked) 
+        {
+            hadPicked = true;
+            canPick = false;
+            onPick.Invoke();
+        }
+    }
+
+
+    private void Throw()
+    {
+        if (hadPicked && Input.GetKey(KeyCode.Space))
+        {
+            //freeze palyer movement
+            speed = 0;
+            if (Input.GetKey(KeyCode.W))
+            {
+                //rotate the arrow upward
+            }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                //rotate the arrow downward
+            }
+        }
     }
 
     private void Move()
@@ -68,4 +98,6 @@ public class Player : MonoBehaviour
         //then play the corresponding animation
         chefAnimator.SetInteger("chooseChefNum", startUIManager.p1ChefNum);    
     }
+
+     
 }

@@ -18,6 +18,11 @@ public class FoodsSpawnerScript : MonoBehaviour
     private Vector2 randomPos;
     public Vector2 randomPosOffset;
 
+    //ref the players and ui manager
+    public GameObject p1;
+    public GameObject p2;
+    public GameModeUIManager gameModeUIManager;
+
     private void Start()
     {
     }
@@ -46,6 +51,9 @@ public class FoodsSpawnerScript : MonoBehaviour
 
             GameObject newFood = Instantiate(foodPrefab, randomPos,Quaternion.identity);
             newFood.GetComponent<SpriteRenderer>().sprite = foodSprites[Random.Range(0, foodSprites.Length)];
+            newFood.GetComponent<FoodItem>().p1 = p1;
+            newFood.GetComponent<FoodItem>().p2 = p2;
+            newFood.GetComponent<FoodItem>().gameModeUIManager = gameModeUIManager;
 
             foodList.Add(newFood);
 

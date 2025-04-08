@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 
@@ -19,6 +20,11 @@ public class Player2 : MonoBehaviour
     public float friction = 5f;
     private Vector2 velocity = Vector2.zero;
 
+    //var for pick up 
+    public bool canPick = false;
+    public bool hadPicked = false;
+    public UnityEvent onPick;
+
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -29,6 +35,13 @@ public class Player2 : MonoBehaviour
     {
         ChangeSprite();
         Move();
+
+        if (canPick && Input.GetKeyDown(KeyCode.Return) && !hadPicked)
+        {
+            hadPicked = true;
+            canPick = false;
+            onPick.Invoke();
+        }
     }
 
     private void Move()
