@@ -35,6 +35,9 @@ public class Player : MonoBehaviour
     public bool getHit = false;
     public UnityEvent onHit;
 
+    public Vector2 minRoomEdge;
+    public Vector2 maxRoomEdge;
+
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -162,6 +165,25 @@ public class Player : MonoBehaviour
         }
 
         gameObject.transform.Translate(velocity * Time.deltaTime);
+
+        //check boundry for room, room is fixed
+        Vector3 playerPos = transform.position;
+
+        if (playerPos.x < minRoomEdge.x)
+        {
+            playerPos.x = minRoomEdge.x;
+        }else if(playerPos.x > maxRoomEdge.x)
+        {
+            playerPos.x = maxRoomEdge.x;
+        }else if(playerPos.y < minRoomEdge.y)
+        {
+            playerPos.y = minRoomEdge.y;
+        }else if(playerPos.y > maxRoomEdge.y)
+        {
+            playerPos.y = maxRoomEdge.y;
+        }
+
+        transform.position = playerPos;
     }
 
     private void ChangeSprite()
