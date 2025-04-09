@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: -887230987, guid: 529af4bdebfb57844ac40648c60dbc05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -102,3 +102,7 @@ MonoBehaviour:
   p1: {fileID: 0}
   p2: {fileID: 0}
   gameModeUIManager: {fileID: 0}
+  moveSpeed: 5
+  moveDirection: {x: 0, y: 0}
+  hitOffset: 1
+  throwBy: {fileID: 0}

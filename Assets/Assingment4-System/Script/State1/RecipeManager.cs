@@ -37,12 +37,12 @@ public class RecipeManager : MonoBehaviour
         //double check if gameState is at 1 and if the recipe canvas is on. If yes then continue on. 
         if(gameStateManager.gameState == 1 && recipeCanvas.activeSelf)
         {
-            if (canChooseCooking && canChooseFood && canChooseNumOfFood)
-            {
-                GenerateRecipeCooking();
-                GenerateRecipeFood();
-                GenerateRecipeNumOfFood();
-            }
+            //if (canChooseCooking && canChooseFood && canChooseNumOfFood)
+            //{
+            //    GenerateRecipeCooking();
+            //    GenerateRecipeFood();
+            //    GenerateRecipeNumOfFood();
+            //}
             
             StartCoroutine(RecipeCountDown());
         }

@@ -33,6 +33,10 @@ public class Player2 : MonoBehaviour
     private Vector2 throwDir;
     public UnityEvent onThrow;
 
+    //ref anf var for the hit mechanic
+    public bool getHit = false;
+    public UnityEvent onHit;
+
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -45,7 +49,13 @@ public class Player2 : MonoBehaviour
         ChangeSprite();
         Move();
         Pick();
-        Throw();      
+        Throw();
+
+        if (getHit)
+        {
+            //apply effects
+            onHit.Invoke();
+        }
     }
 
     private void Throw()
@@ -57,16 +67,16 @@ public class Player2 : MonoBehaviour
                 //freeze palyer movement
                 speed = 0;
                 arrowRotator.SetActive(true);
-                if (Input.GetKey(KeyCode.H))
+                if (Input.GetKey(KeyCode.UpArrow))
                 {
                     //rotate the arrow upward                 
                     arrowRotator.transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
 
-                } else if (Input.GetKey(KeyCode.N))
+                } else if (Input.GetKey(KeyCode.DownArrow))
                 {
                     //rotate the arrow downward
                     arrowRotator.transform.Rotate(0, 0, -rotateSpeed * Time.deltaTime);
-                } else if (Input.GetKey(KeyCode.B) || Input.GetKey(KeyCode.M))
+                } else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
                 {
                     //throw the food
                     onThrow.Invoke();
@@ -90,6 +100,7 @@ public class Player2 : MonoBehaviour
         {
             // Unparent the food so it's no longer attached to the player
             heldFood.transform.parent = null;
+            heldFood.GetComponent<FoodItem>().throwBy = this.gameObject;
 
             // Start the throwing action on the food item
             throwDir = arrowRotator.transform.right;
@@ -128,18 +139,18 @@ public class Player2 : MonoBehaviour
         //check which key is being pressed, then change the velocity(direction) corresspondingly so it is moving in different dirction
         //use else if to check each of them in a order, to prevent diagonal movement.
         //left & right
-        if (Input.GetKey(KeyCode.B))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             velocity.x = -speed;
-        } else if (Input.GetKey(KeyCode.M))
+        } else if (Input.GetKey(KeyCode.RightArrow))
         {
             velocity.x = speed;
         }
           //up & down
-          else if (Input.GetKey(KeyCode.N))
+          else if (Input.GetKey(KeyCode.DownArrow))
         {
             velocity.y = -speed;
-        } else if (Input.GetKey(KeyCode.H))
+        } else if (Input.GetKey(KeyCode.UpArrow))
         {
             velocity.y = speed;
         } else

@@ -24,6 +24,10 @@ public class FoodItem : MonoBehaviour
     private bool isFlying = false;
     public Vector2 moveDirection;
 
+    //var for hit mechanic
+    public float hitOffset = 1f;
+    public GameObject throwBy;
+
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -47,8 +51,42 @@ public class FoodItem : MonoBehaviour
             //DON"T FORGET TO SET THE SCALE BACK TO ITS ORIGINAL SCALE, then move the food in the corresponding direction
             transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             transform.position += (Vector3)moveDirection * moveSpeed * Time.deltaTime;
-            //after a certaime / hit a player destroy
+            //check if the food is close to the pllayer
+            CheckForHit();
         }
+    }
+
+    private void CheckForHit()
+    {  
+        //if it is overlaping(close enought with offset) then it is hit
+        if (throwBy == p1)
+        {
+            float distance2 = Vector2.Distance(transform.position, p2.transform.position);
+            if (distance2 < hitOffset)
+            {
+                p2.GetComponent<Player2>().getHit = true;
+                gameModeUIManager.hitFood2 = sr.sprite;
+                OnHit(p2);
+            }
+        }
+        else if(throwBy == p2)
+        {
+            float distance1 = Vector2.Distance(transform.position, p1.transform.position);
+
+            if (distance1 < hitOffset)
+            {
+                p1.GetComponent<Player>().getHit = true;
+                gameModeUIManager.hitFood1 = sr.sprite;
+                OnHit(p1);
+            }
+        }         
+    }
+
+    private void OnHit(GameObject player)
+    {
+        Debug.Log("food hit" +  player);
+        transform.localScale = Vector3.zero;
+        Destroy(gameObject,1);
     }
 
     public void StartThrow(Vector2 throwDir)

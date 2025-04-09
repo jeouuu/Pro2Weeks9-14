@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     public UnityEvent onThrow;
 
     //ref anf var for the hit mechanic
+    public bool getHit = false;
     public UnityEvent onHit;
 
     private void Start()
@@ -47,6 +48,12 @@ public class Player : MonoBehaviour
         Move();
         Pick();
         Throw();
+
+        if (getHit)
+        {
+            //apply effects
+            onHit.Invoke();
+        }
     }
 
     private void Throw()
@@ -92,6 +99,7 @@ public class Player : MonoBehaviour
         {
             // Unparent the food so it's no longer attached to the player
             heldFood.transform.parent = null;
+            heldFood.GetComponent<FoodItem>().throwBy = this.gameObject;
 
             // Start the throwing action on the food item
             throwDir = arrowRotator.transform.right;

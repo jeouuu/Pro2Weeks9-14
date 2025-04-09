@@ -56,7 +56,7 @@ public class FoodsSpawnerScript : MonoBehaviour
             newFood.GetComponent<FoodItem>().p2 = p2;
             newFood.GetComponent<FoodItem>().gameModeUIManager = gameModeUIManager;
 
-            foodList.Add(newFood);
+           // foodList.Add(newFood);
 
             yield return new WaitForSeconds(foodSpawnT);
         }

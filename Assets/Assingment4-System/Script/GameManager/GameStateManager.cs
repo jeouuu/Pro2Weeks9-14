@@ -16,13 +16,16 @@ public class GameStateManager : MonoBehaviour
     public GameObject gameModeUI;
     public GameObject gameMode;
 
+    //ref from state 3
+
     private void Start()
     {
-        gameState = 2;
+        gameState = 0;
     }
 
     private void Update()
     {
+        //based on the game state, enable the ui and game object accordingly
         if(gameState == 0)
         {
             startMenu.SetActive(true);
@@ -43,6 +46,14 @@ public class GameStateManager : MonoBehaviour
             recipeUI.SetActive(false);
             gameModeUI.SetActive(true);
             gameMode.SetActive(true);
+        }
+        if( gameState == 3)
+        {
+            startMenu.SetActive(false);
+            recipeUI.SetActive(false);
+            gameModeUI.SetActive(false);
+            gameMode.SetActive(false);
+            //work this part in end game manager
         }
     }
 
