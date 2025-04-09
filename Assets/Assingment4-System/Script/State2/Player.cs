@@ -100,16 +100,16 @@ public class Player : MonoBehaviour
     {
         if (heldFood != null)
         {
-            // Unparent the food so it's no longer attached to the player
+            // unparent the food so it's no longer attached to the player
             heldFood.transform.parent = null;
             heldFood.GetComponent<FoodItem>().throwBy = this.gameObject;
 
-            // Start the throwing action on the food item
+            // start the throwing action on the food item
             throwDir = arrowRotator.transform.right;
             throwDir.Normalize();
             heldFood.GetComponent<FoodItem>().StartThrow(throwDir);
 
-            // After throwing, reset the held food state
+            // after throwing, reset the held food state
             hadPicked = false;
             heldFood = null;
         }

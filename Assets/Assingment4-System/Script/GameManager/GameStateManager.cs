@@ -17,6 +17,9 @@ public class GameStateManager : MonoBehaviour
     public GameObject gameMode;
 
     //ref from state 3
+    public GameObject timeEndUI;
+    public GameObject p1WinUI;
+    public GameObject p2WinUI;
 
     private void Start()
     {
@@ -32,6 +35,9 @@ public class GameStateManager : MonoBehaviour
             recipeUI.SetActive(false);
             gameModeUI.SetActive(false);
             gameMode.SetActive(false);
+            timeEndUI.SetActive(false);
+            p1WinUI.SetActive(false);
+            p2WinUI.SetActive(false);
         }
         if(gameState == 1)
         {
@@ -39,6 +45,9 @@ public class GameStateManager : MonoBehaviour
             recipeUI.SetActive(true);
             gameModeUI.SetActive(false);
             gameMode.SetActive(false);
+            timeEndUI.SetActive(false);
+            p1WinUI.SetActive(false);
+            p2WinUI.SetActive(false);
         }
         if (gameState == 2)
         {
@@ -46,6 +55,9 @@ public class GameStateManager : MonoBehaviour
             recipeUI.SetActive(false);
             gameModeUI.SetActive(true);
             gameMode.SetActive(true);
+            timeEndUI.SetActive(false);
+            p1WinUI.SetActive(false);
+            p2WinUI.SetActive(false);
         }
         if( gameState == 3)
         {
